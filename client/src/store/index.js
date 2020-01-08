@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import Axios from 'axios'
 import router from '../router/index'
 import AuthService from '../AuthService'
+import NotificationService from '../NotificationService.js'
 
 Vue.use(Vuex)
 
@@ -37,7 +38,7 @@ export default new Vuex.Store({
         commit('setUser', user)
         router.push({ name: "boards" })
       } catch (e) {
-        console.warn(e.message)
+        NotificationService.toastError(e)
       }
     },
     async login({ commit, dispatch }, creds) {
@@ -72,6 +73,12 @@ export default new Vuex.Store({
     addBoard({ commit, dispatch }, boardData) {
       api.post('boards', boardData)
         .then(serverBoard => {
+          dispatch('getBoards')
+        })
+    },
+    removeBoard({ commit, dispatch }, boardId) {
+      api.delete('boards/' + boardId)
+        .then(res => {
           dispatch('getBoards')
         })
     }

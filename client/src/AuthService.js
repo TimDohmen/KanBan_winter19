@@ -13,7 +13,7 @@ export default class AuthService {
       let res = await auth.post('login', creds)
       return res.data
     } catch (e) {
-      throw new Error(`[login failed] : ${!e.response ? 'No response from server' : e.response.data.error}`)
+      throw new Error(`[login failed] : ${!e.response ? 'No response from server' : e.response.data.error.message}`)
     }
   }
   static async Register(creds) {
@@ -21,7 +21,7 @@ export default class AuthService {
       let res = await auth.post('register', creds)
       return res.data
     } catch (e) {
-      throw new Error(`[registration failed] : ${!e.response ? 'No response from server' : e.response.data.error}`)
+      throw new Error(`[registration failed] : ${!e.response ? 'No response from server' : e.response.data.error.message}`)
     }
   }
   static async Logout() {
