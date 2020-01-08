@@ -75,12 +75,6 @@ export default new Vuex.Store({
         .then(serverBoard => {
           dispatch('getBoards')
         })
-    },
-    removeBoard({ commit, dispatch }, boardId) {
-      api.delete('boards/' + boardId)
-        .then(res => {
-          dispatch('getBoards')
-        })
     }
     //#endregion
 
